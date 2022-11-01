@@ -3,11 +3,15 @@
 {% block titulo %} Link {% endblock %}
 
 {% block contenido %} 
-<form action="{% url "register" %}" method="post" class="form-text">
-    {% csrf_token %}
-    <table>
-        {{user_form.as_table}}
-    </table>
-     <input type="submit"  class="btn btn-success" value="Submit">
-</form>
+  <div class='row justify-content-center'>
+    
+        <form action="{% url "register" %}" method="post" class="form-text">
+            {% csrf_token %}
+            <div class="form-group">
+                {{user_form.as_table}}
+            </div>
+            <input type="submit"  class="btn btn-danger m-4 p-3" value="Submit">
+        </form>
+   
+</div>
 {% endblock %}

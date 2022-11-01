@@ -5,10 +5,14 @@ from django.forms import ValidationError
 class UserForm(forms.Form):
 
     # forms.CharField(widget=forms.TextInput(attrs={"class":"css_class"}))
-    name = forms.CharField(label="First Name", required=False)
-    email = forms.EmailField(label="Email")
-    username = forms.CharField(label="Username")
-    password = forms.CharField(widget=forms.PasswordInput(), label="Password")
+    name = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control m-2 p-2'}), label="First Name", required=False)
+    email = forms.EmailField(widget=forms.TextInput(
+        attrs={'class': 'form-control m-2 p-2'}), label="Email")
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control m-2 p-2'}), label="Username")
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'form-control m-2 p-2'}), label="Password")
 
     # def clean_user(self):
     #    data = self.cleaned_data['password']
