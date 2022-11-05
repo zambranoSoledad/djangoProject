@@ -1,14 +1,14 @@
 {%extends "base.html" %}
 
-{% block titulo %} Registro {% endblock %}
+{% block titulo %} Compra {% endblock %}
 
 {% block contenido %} 
   <div class='row justify-content-center'>
     
-        <form action="{% url "register" %}" method="post" class="form-text">
+        <form action="{% url "sell" %}" method="post" class="form-text">
             {% csrf_token %}
             <div class="form-group">
-                {{user_form.as_table}}
+                {{sell_form.as_table}}
             </div>
             <input type="submit"  class="btn btn-danger m-4 p-3" value="Enviar">
         </form>
