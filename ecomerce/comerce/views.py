@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from comerce.forms import UserForm
 from comerce.forms import SellForm #esto el VSC me lo muestra como error
-
+from django.contrib import messages
 # Create your views here.
 
 
@@ -37,6 +37,9 @@ def sell(request):
         sell_form = SellForm(request.POST)
         if sell_form.is_valid():
             print("Formulario valido")
+            messages.success(request, "Compra realizada con éxito")
+        else:
+            messages.error(request, "Error en la carga de la compra")
     else:
         sell_form = SellForm()
     return render(request, "sell.html", {"sell_form": sell_form})
