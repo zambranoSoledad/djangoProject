@@ -62,15 +62,19 @@ def product_register(request):
     if request.method == "POST":
         product_form = ProductForm(request.POST)
         if product_form.is_valid():
-            messages.success(request, "Registro exitoso!")
-            product_form = product_form.cleaned_data
-            print(product_form)
-            product = Productos(nombre_producto=product_form['product_name'],
-                                precio=product_form['price'],
-                                categoria=Categorias.objects.get(
-                                    pk=product_form['category']),
-                                stock=product_form['stock'])
-            product.save()
+            try:
+                product_form = product_form.cleaned_data
+                category = Categorias.objects.get(
+                    pk=product_form['category'])
+                product = Productos(nombre_producto=product_form['product_name'],
+                                    precio=product_form['price'],
+                                    categoria=category,
+                                    stock=product_form['stock'])
+                product.save()
+                messages.success(request, "Registro exitoso!")
+            except Categorias.DoesNotExist as e:
+                print(f'Exception: {e.__class__.__name__}')
+                messages.error(request, 'Categoria no Encontrada!')
         else:
             messages.error(request, "Error al registrar este producto!")
     else:
