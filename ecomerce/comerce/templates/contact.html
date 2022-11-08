@@ -4,6 +4,12 @@
 
 {% block contenido %} 
 
-Seccion de contenido de contacto
+<form action="{% url "contact" %} class="form-text" method="post"">
+
+  {% csrf_token %}
+  {{ contact_form }}
+   
+  <input type="submit"  class="btn btn-danger m-4 p-3" value="Enviar">
+</form>
 
 {% endblock contenido %}

@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .forms import UserForm, SellForm,  ProductForm
+from .forms import UserForm, SellForm, ProductForm, ContactForm
 from django.contrib import messages
 # Create your views here.
 
@@ -12,12 +12,6 @@ from django.contrib import messages
 def home(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render())
-
-
-def contact(request):
-    template = loader.get_template('contact.html')
-    return HttpResponse(template.render())
-
 
 class ProductListView(ListView):
 
@@ -29,6 +23,16 @@ class ProductView(View):
     model = Productos
 
 
+def contact(request):
+    if request.method == "POST":
+        contact_form = ContactForm(request.POST)
+        if contact_form.is_valid():
+            print("Formulario valido")
+    else:
+        contact_form = ContactForm()
+    return render(request, "contact.html", {"contact_form": contact_form})
+
+
 def register(request):
     if request.method == "POST":
         user_form = UserForm(request.POST)
@@ -37,11 +41,6 @@ def register(request):
     else:
         user_form = UserForm()
     return render(request, "register_user.html", {"user_form": user_form})
-
-
-def link(request):
-    template = loader.get_template('link.html')
-    return HttpResponse(template.render())
 
 
 def sell(request):

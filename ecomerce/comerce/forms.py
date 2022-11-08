@@ -11,6 +11,13 @@ def quantity_products_validate(value):
         raise ValidationError(
             "Debes ingresar al menos 1 producto en la compra", code="error_quantity_products",)
 
+class ContactForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control m-2 p-2'}), label="Nombre", required=False)
+    apellido = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control m-2 p-2'}), label="Apellido", required=False)
+    email = forms.EmailField(widget=forms.TextInput(
+        attrs={'class': 'form-control m-2 p-2'}), label="Mail")
 
 class UserForm(forms.Form):
 
