@@ -1,0 +1,24 @@
+{%extends "base.html" %}
+
+{% block titulo %} Compra {% endblock %}
+
+{% block contenido %} 
+  <div class='row justify-content-center'>
+    
+        <form action="{% url "product_register" %}" method="post" class="form-text">
+            {% csrf_token %}
+            <div class="form-group">
+                {{product_form.as_table}}
+            </div>
+            <input type="submit"  class="btn btn-danger m-4 p-3" value="Registrar">
+        </form>
+   
+</div>
+{% if messages %}
+<div class=" 'messages">
+  {% for message in messages %}
+  <h2{% if message.tags %} class ="{{ message.tags }}"{% endif %}>{{ message }}</h2>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
