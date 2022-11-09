@@ -1,0 +1,14 @@
+.color_fondo{
+    background-color: #dd6141;
+}
+.alineacion{
+text-align: center; 
+    padding:25px
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    background-color: rgb(101, 189, 149);
+}
