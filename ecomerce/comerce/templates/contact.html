@@ -4,7 +4,7 @@
 
 {% block contenido %} 
 
-<form action="{% url "contact" %} class="form-text" method="post"">
+<form action="{% url "contact" %} class="form-text" method="post" validate">
 
   {% csrf_token %}
   {{ contact_form }}

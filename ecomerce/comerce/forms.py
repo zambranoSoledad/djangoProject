@@ -13,11 +13,13 @@ def quantity_products_validate(value):
 
 class ContactForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Nombre", required=False)
+        attrs={'class': 'form-control m-2 p-2'}), label="Nombre",)
     apellido = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Apellido", required=False)
+        attrs={'class': 'form-control m-2 p-2'}), label="Apellido",)
     email = forms.EmailField(widget=forms.TextInput(
         attrs={'class': 'form-control m-2 p-2'}), label="Mail")
+    textarea = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control m-2 p-5'}), label="Textarea",)
 
 class UserForm(forms.Form):
 
