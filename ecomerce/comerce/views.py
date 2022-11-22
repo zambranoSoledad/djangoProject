@@ -68,11 +68,12 @@ class ProductView(View):
         return render(request, self.template_name, {'product_form': form})
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Registro exitoso!")
             return redirect('product_register')
+        print("Error!!!!", form.cleaned_data)
 
     '''
     if request.method == "POST":

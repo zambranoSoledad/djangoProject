@@ -32,6 +32,7 @@ class Productos(models.Model):
     precio = models.FloatField(verbose_name='Precio')
     categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE)
     stock = models.IntegerField(verbose_name='Stock', default=0)
+    imagen = models.ImageField(upload_to='images/', null=True, blank=True)
 
 
 class Ventas(models.Model):
