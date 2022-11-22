@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,15 +76,15 @@ WSGI_APPLICATION = 'ecomerce.wsgi.application'
 #   }
 
 DATABASES = {
-      'default': {
-          'ENGINE': 'django.db.backends.postgresql_psycopg2',
-          'NAME': 'django_db',
-          'USER': 'postgres',
-          'PASSWORD': 'your password of pgadmin',
-          'HOST': 'localhost',
-          'PORT': '5432',
-      }
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_db',
+        'USER': 'postgres',
+        'PASSWORD': 'Your secret password here',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
@@ -122,9 +122,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-BASE_DIR='djangoProject\ecomerce\comerce\static'
+BASE_DIR = 'djangoProject\ecomerce\comerce\static'
 STATIC_URL = 'static/'
-STATICFIELDS_DIR=[os.path.join(BASE_DIR,'static')]
+STATICFIELDS_DIR = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

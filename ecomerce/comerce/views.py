@@ -1,7 +1,7 @@
 from django.views import View
 from .models import Productos, Categorias
 from django.views.generic.list import ListView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from .forms import UserForm, SellForm, ProductForm, ContactForm
@@ -12,6 +12,7 @@ from django.contrib import messages
 def home(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render())
+
 
 class ProductListView(ListView):
 
@@ -56,8 +57,24 @@ def sell(request):
     return render(request, "sell.html", {"sell_form": sell_form})
 
 
-def product_register(request):
+class ProductView(View):
     '''Register a new Product, It has matter the Categories foreign Key '''
+
+    form_class = ProductForm
+    template_name = 'product.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'product_form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Registro exitoso!")
+            return redirect('product_register')
+
+    '''
     if request.method == "POST":
         product_form = ProductForm(request.POST)
         if product_form.is_valid():
@@ -79,3 +96,5 @@ def product_register(request):
     else:
         product_form = ProductForm()
     return render(request, "product.html", {"product_form": product_form})
+
+    '''

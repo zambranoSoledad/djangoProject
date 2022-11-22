@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ValidationError
+from django.forms import ValidationError, ModelForm
 
 from .models import Productos
 
@@ -11,6 +11,7 @@ def quantity_products_validate(value):
         raise ValidationError(
             "Debes ingresar al menos 1 producto en la compra", code="error_quantity_products",)
 
+
 class ContactForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control m-2 p-2'}), label="Nombre",)
@@ -20,6 +21,7 @@ class ContactForm(forms.Form):
         attrs={'class': 'form-control m-2 p-2'}), label="Mail")
     textarea = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control m-2 p-5'}), label="Textarea",)
+
 
 class UserForm(forms.Form):
 
@@ -54,12 +56,7 @@ class SellForm(forms.Form):
         attrs={'class': 'form-control m-2 p-2'}), label="Monto")
 
 
-class ProductForm(forms.Form):
-    product_name = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Descripción", required=True)
-    category = forms.IntegerField(widget=forms.NumberInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Categoria", required=True)
-    stock = forms.IntegerField(widget=forms.NumberInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Cantidad", required=True)
-    price = forms.FloatField(widget=forms.NumberInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Precio", required=True)
+class ProductForm(ModelForm):
+    class Meta:
+        model = Productos
+        fields = '__all__'
