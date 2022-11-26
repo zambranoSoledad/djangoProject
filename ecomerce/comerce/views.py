@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.template import loader
 from .forms import UserForm, SellForm, ProductForm, ContactForm
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 
 
@@ -20,8 +22,22 @@ class ProductListView(ListView):
     paginate_by = 100  # if pagination is desired
 
 
-class ProductView(View):
-    model = Productos
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(
+            request=request, username=username, password=password)
+        if user is not None:
+            form = login(request, user=user)
+            messages.success(request, f'Bienvenido {username}')
+            print("Formulario valido")
+            return redirect('login')
+        else:
+            messages.error(request, f'Usuario o contraseña incorrecto')
+    else:
+        form_auth = AuthenticationForm()
+    return render(request, "login.html", {"form_user": form_auth})
 
 
 def contact(request):
