@@ -1,5 +1,13 @@
+header{
+    background-image: url('./imgenes/fondo_venta.jpg');
+    background-repeat: round;
+    justify-content: center;
+}
+h3{
+    color: white;
+}
 .color_fondo{
-    background-color: #dd6141;
+    background-color: #5573df;
 }
 .alineacion{
 text-align: center; 
