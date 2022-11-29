@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .forms import UserForm, SellForm, ProductForm, ContactForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 
@@ -19,7 +19,8 @@ def home(request):
 class ProductListView(ListView):
 
     model = Productos
-    paginate_by = 100  # if pagination is desired
+    template_name = "index.html"
+   # paginate_by = 100  # if pagination is desired
 
 
 def login_user(request):
