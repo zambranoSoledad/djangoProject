@@ -6,22 +6,45 @@
 
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for article in object_list %}
-  <div class="col">
-    <div class="card">
+  
+    <div class="card" style="width: 25rem; margin-top: 2.5rem; margin-left: 1rem">
       <img src="media/{{ article.imagen }}" class="card-img-top" alt="Producto">
       <div class="card-body">
         <h5 class="card-title">{{ article.nombre_producto }}</h5>
         <p class="card-text"> ${{ article.precio }}</p>
+         <a href="#" class="btn btn-primary">Comprar</a>
       </div>
-      
-    </div>
+
+   
   </div>
+  
     <!-- <li>{{ article.pub_date|date }} - {{ article.headline }}</li>      -->
 {% empty %}
-    <li>No articles yet.</li>
+    <li>No hay productos aún.</li>
 {% endfor %}
  
  
 </div>
+{% if is_paginated %}
+  <ul class="pagination">
+    {% if object_list.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if object_list.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if object_list.has_next %}
+      <li><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
 
 {% endblock %}

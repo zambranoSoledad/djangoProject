@@ -20,7 +20,7 @@ class ProductListView(ListView):
 
     model = Productos
     template_name = "index.html"
-   # paginate_by = 100  # if pagination is desired
+    paginate_by = 10  # if pagination is desired
 
 
 def login_user(request):
