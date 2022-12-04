@@ -7,7 +7,7 @@ from .models import Productos
 
 
 def quantity_products_validate(value):
-    if not value or value < 0:
+    if not value or value < 1:
         raise ValidationError(
             "Debes ingresar al menos 1 producto en la compra", code="error_quantity_products",)
 
@@ -44,16 +44,15 @@ class UserForm(forms.Form):
 
 
 class SellForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Usuario", required=True)
-    date = forms.DateField(widget=forms.SelectDateWidget(
-        attrs={'class': 'form-control m-2 p-2'}), label="Fecha", required=True)
-    product = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Producto")
+
+    # username = forms.CharField(widget=forms.TextInput(
+    #    attrs={'class': 'form-control m-2 p-2'}), label="Usuario", required=True)
+    # date = forms.DateField(widget=forms.SelectDateWidget(
+    #    attrs={'class': 'form-control m-2 p-2'}), label="Fecha", required=True)
+    # product = forms.CharField(widget=forms.TextInput(
+    #    attrs={'class': 'form-control m-2 p-2'}), label="Producto")
     quantity = forms.IntegerField(widget=forms.NumberInput(
         attrs={'class': 'form-control m-2 p-2'}), label="Cantidad", validators=(quantity_products_validate,))
-    amount = forms.FloatField(widget=forms.NumberInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Monto")
 
 
 class ProductForm(ModelForm):

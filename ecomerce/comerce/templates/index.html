@@ -12,7 +12,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ article.nombre_producto }}</h5>
         <p class="card-text"> ${{ article.precio }}</p>
-         <a href="#" class="btn btn-primary">Comprar</a>
+         <a href="{% url 'sell' article.id %}" class="btn btn-primary">Comprar</a>
       </div>
 
    

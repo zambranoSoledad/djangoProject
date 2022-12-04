@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'ecomerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_db',
+        'NAME': 'djangodb',  # eliminar anterior base de datos
         'USER': 'postgres',
-        'PASSWORD': 'Your secret password here',
+        'PASSWORD': 'Lucia90',
         'HOST': 'localhost',
         'PORT': '5432',
     }

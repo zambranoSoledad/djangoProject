@@ -1,5 +1,5 @@
 from django.views import View
-from .models import Productos, Categorias
+from .models import Productos, Ventas, User
 from django.views.generic.list import ListView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -8,7 +8,7 @@ from .forms import UserForm, SellForm, ProductForm, ContactForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-# Create your views here.
+from datetime import datetime
 
 
 def home(request):
@@ -27,8 +27,10 @@ def login_user(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
+        print(username, password)
         user = authenticate(
             request=request, username=username, password=password)
+        print(user)
         if user is not None:
             form = login(request, user=user)
             messages.success(request, f'Bienvenido {username}')
@@ -36,6 +38,7 @@ def login_user(request):
             return redirect('login')
         else:
             messages.error(request, f'Usuario o contraseña incorrecto')
+            return redirect('login')
     else:
         form_auth = AuthenticationForm()
     return render(request, "login.html", {"form_user": form_auth})
@@ -61,17 +64,32 @@ def register(request):
     return render(request, "register_user.html", {"user_form": user_form})
 
 
-def sell(request):
+def confirm_sell(request):
+    sell = request.session['sell']
+    return render(request, "confirm_sell.html", {"sell_form": sell})
+
+
+def sell(request, id_producto=None):
+    product = Productos.objects.get(pk=id_producto)
+    user = request.user
+    user_log = User(user)
+    print(user, product)
     if request.method == "POST":
         sell_form = SellForm(request.POST)
         if sell_form.is_valid():
-            print("Formulario valido")
+            print(user, isinstance(user_log, User))
+            sell = Ventas(
+                producto=product, cantidad=sell_form.cleaned_data["quantity"],
+                monto=sell_form.cleaned_data["quantity"] * product.precio, usuario=user_log.id, fecha=datetime.now())
+            request.session['sell'] = sell
             messages.success(request, "Compra realizada con éxito")
+            return redirect('confirm_sell')
         else:
             messages.error(request, "Error en la carga de la compra")
     else:
         sell_form = SellForm()
-    return render(request, "sell.html", {"sell_form": sell_form})
+        #product = Productos.objects.get(pk=id_producto)
+    return render(request, "sell.html", {"sell_form": sell_form, "product": product})
 
 
 class ProductView(View):
