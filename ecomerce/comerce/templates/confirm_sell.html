@@ -17,7 +17,7 @@
         <form action="{% url "product_register" %}" enctype="multipart/form-data" method="post" class="form-text">
             {% csrf_token %}
            <div class="form-group">
-              <h2>Confirma tu Compra</h2>
+              <h2>Confirma tu Compra.</h2>
               <input type="text" id="lname" name="lname" placeholder="{{venta.producto.nombre_producto}}" disabled style="display: block;">
                <img src="../media/{{venta.producto.imagen}}" class="card-img-top" alt="Producto" style="width: 50rem">
               <div class="card-body">
