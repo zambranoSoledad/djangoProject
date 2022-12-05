@@ -9,7 +9,8 @@ from .models import Productos
 def quantity_products_validate(value):
     if not value or value < 1:
         raise ValidationError(
-            "Debes ingresar al menos 1 producto en la compra", code="error_quantity_products",)
+            "Debes ingresar al menos 1 producto en la compra",
+            code="error_quantity_products",)
 
 
 class ContactForm(forms.Form):
@@ -33,7 +34,8 @@ class UserForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control m-2 p-2'}), label="Usuario")
     password = forms.CharField(widget=forms.PasswordInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Contraseña")
+        attrs={'class': 'form-control m-2 p-2'}),
+        label="Contraseña")
 
     # def clean_user(self):
     #    data = self.cleaned_data['password']

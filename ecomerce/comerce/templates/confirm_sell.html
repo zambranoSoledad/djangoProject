@@ -3,31 +3,33 @@
 {% block titulo %} Compra {% endblock %}
 
 {% block contenido %}
-{% if messages %}
-<div class=" 'messages">
-  {% for message in messages %}
+<div class='row justify-content-center'>
+
+  <div>
+    {% csrf_token %}
+    <div class="form-group">
+      <h2>Confirma tu Compra.</h2>
+      <input type="text" id="lname" name="lname" placeholder="{{sell.product.nombre_producto}}" disabled
+        style="display: block;">
+      <img src="../media/{{sell.product.imagen}}" class="card-img-top" alt="Producto" style="width: 50rem">
+      <div class="card-body">
+        <h4>Precio unitario: ${{sell.product.precio }}</h4>
+        <h4>Cantidad: {{ sell.quantity }} unidades.</h4>
+        <h4>Total: ${{ sell.amount }}</h4>
+      </div>
+    </div>
+    <a class="btn btn-primary" href="{% url 'success_sell' %}">Comprar</a>
+
+  </div>
+  {% if messages %}
+  <div class=" 'messages">
+    {% for message in messages %}
     <div class="alert alert-info" role="alert">
-        {{ message }}
-    </div>  
-  {% endfor %}
-</div>
-{% endif %}
-  <div class='row justify-content-center'>
-    
-        <form action="{% url "product_register" %}" enctype="multipart/form-data" method="post" class="form-text">
-            {% csrf_token %}
-           <div class="form-group">
-              <h2>Confirma tu Compra.</h2>
-              <input type="text" id="lname" name="lname" placeholder="{{venta.producto.nombre_producto}}" disabled style="display: block;">
-               <img src="../media/{{venta.producto.imagen}}" class="card-img-top" alt="Producto" style="width: 50rem">
-              <div class="card-body">
-                <h4> ${{ venta.producto.precio }}</h4>
-                <h4> Total: ${{ venta.monto }}</h4>
-              </div>
-            </div>
-            <input type="submit"  class="btn btn-danger m-4 p-3" value="Confirmar">
-        </form>
-   
+      {{ message }}
+      </div>
+      {% endfor %}
+      </div>
+      {% endif %}
 </div>
 
 {% endblock %}

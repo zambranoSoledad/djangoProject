@@ -1,0 +1,35 @@
+{%extends "base.html" %}
+
+{% block titulo %} Compra {% endblock %}
+
+{% block contenido %}
+{% if messages %}
+<div class=" 'messages">
+    {% for message in messages %}
+    <div class="alert alert-info" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<div class='row justify-content-center'>
+
+    <div>
+        {% csrf_token %}
+        <div class="form-group">
+            <h2>Detalle de Compra.</h2>
+            <h5>Fecha: {{sell.fecha.isoformat}}</h5>
+            <input type="text" id="lname" name="lname" placeholder="{{sell.producto.nombre_producto}}" disabled
+                style="display: block;">
+            <img src="../media/{{sell.producto.imagen}}" class="card-img-top" alt="Producto" style="width: 50rem">
+            <div class="card-body">
+                <h4>Precio unitario: ${{sell.producto.precio }}</h4>
+                <h4>Cantidad: {{ sell.cantidad }} unidades.</h4>
+                <h4>Total: ${{ sell.monto }}</h4>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

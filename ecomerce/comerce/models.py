@@ -50,4 +50,10 @@ class Ventas(models.Model):
             self.monto = self.producto.precio * self.cantidad
 
     def sell(self):
-        self.producto.stock -= self.cantidad
+        if self.producto.stock >= self.cantidad:
+            print("Stock antes: ", self.producto.stock)
+            self.producto.stock -= self.cantidad
+            self.producto.save()
+            print("Stock después: ", self.producto.stock)
+            return True
+        return False

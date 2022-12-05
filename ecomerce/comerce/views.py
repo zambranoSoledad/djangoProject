@@ -8,7 +8,8 @@ from .forms import UserForm, SellForm, ProductForm, ContactForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-from datetime import datetime
+from datetime import date
+from django.core import serializers
 
 
 def home(request):
@@ -64,26 +65,57 @@ def register(request):
     return render(request, "register_user.html", {"user_form": user_form})
 
 
-def confirm_sell(request):
-    sell = request.session['sell']
-    return render(request, "confirm_sell.html", {"sell_form": sell})
+def success_sell(request):
+    sell = request.session["sell"]
+    user = request.user
+    user_log = User(user)
+    sell_obj = Ventas(
+        producto=Productos.objects.get(pk=sell["id_product"]),
+        cantidad=sell["quantity"],
+        monto=sell["amount"],
+        usuario=user_log.id, fecha=date.today())
+    result = sell_obj.sell()
+    if result:
+        sell_obj.save()
+        messages.success(request, "Compra Exitosa!")
+    else:
+        messages.error(request,
+                       "La Compra no se ha podido realizar!")
+    sell_obj.fecha.isoformat
+    return render(request, "success_sell.html", {"sell": sell_obj})
 
+def confirm_sell(request):
+    sell = request.session['sell'].copy()
+    product = Productos.objects.get(pk=sell["id_product"])
+    sell["product"] = product
+    print(request.session['sell'])
+    return render(request, "confirm_sell.html", {"sell": sell})
 
 def sell(request, id_producto=None):
     product = Productos.objects.get(pk=id_producto)
-    user = request.user
-    user_log = User(user)
-    print(user, product)
     if request.method == "POST":
         sell_form = SellForm(request.POST)
         if sell_form.is_valid():
-            print(user, isinstance(user_log, User))
-            sell = Ventas(
-                producto=product, cantidad=sell_form.cleaned_data["quantity"],
-                monto=sell_form.cleaned_data["quantity"] * product.precio, usuario=user_log.id, fecha=datetime.now())
-            request.session['sell'] = sell
-            messages.success(request, "Compra realizada con éxito")
-            return redirect('confirm_sell')
+            if product.stock >= sell_form.cleaned_data["quantity"]:
+                sell = {"id_product": product.pk,
+                        "quantity": sell_form.cleaned_data["quantity"],
+                        "amount": sell_form.cleaned_data["quantity"] * product.precio,
+                        }
+                request.session['sell'] = sell
+                # messages.success(request, "Compra realizada con éxito")
+                return redirect('confirm_sell')
+            else:
+                messages.error(
+                    request, "La cantidad supera la disponibilidad.")
+            # sell = Ventas(
+            #    producto=product, cantidad=sell_form.cleaned_data["quantity"],
+            #   monto=sell_form.cleaned_data["quantity"] * product.precio,
+            #   usuario=user_log.id, fecha=date.today())
+            # print(sell.fecha)
+            # sell.sell()
+            # sell.save()
+            # serializers.serialize("xml", [sell])
+
         else:
             messages.error(request, "Error en la carga de la compra")
     else:
