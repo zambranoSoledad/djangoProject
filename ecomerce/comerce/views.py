@@ -8,6 +8,7 @@ from .forms import UserForm, SellForm, ProductForm, ContactForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 from datetime import date
 from django.core import serializers
 
@@ -65,6 +66,7 @@ def register(request):
     return render(request, "register_user.html", {"user_form": user_form})
 
 
+@login_required(login_url='login')
 def success_sell(request):
     sell = request.session["sell"]
     user = request.user
@@ -81,9 +83,11 @@ def success_sell(request):
     else:
         messages.error(request,
                        "La Compra no se ha podido realizar!")
-    sell_obj.fecha.isoformat
+
     return render(request, "success_sell.html", {"sell": sell_obj})
 
+
+@login_required(login_url='login')
 def confirm_sell(request):
     sell = request.session['sell'].copy()
     product = Productos.objects.get(pk=sell["id_product"])
@@ -91,6 +95,8 @@ def confirm_sell(request):
     print(request.session['sell'])
     return render(request, "confirm_sell.html", {"sell": sell})
 
+
+@login_required(login_url='login')
 def sell(request, id_producto=None):
     product = Productos.objects.get(pk=id_producto)
     if request.method == "POST":
@@ -102,20 +108,10 @@ def sell(request, id_producto=None):
                         "amount": sell_form.cleaned_data["quantity"] * product.precio,
                         }
                 request.session['sell'] = sell
-                # messages.success(request, "Compra realizada con éxito")
                 return redirect('confirm_sell')
             else:
                 messages.error(
                     request, "La cantidad supera la disponibilidad.")
-            # sell = Ventas(
-            #    producto=product, cantidad=sell_form.cleaned_data["quantity"],
-            #   monto=sell_form.cleaned_data["quantity"] * product.precio,
-            #   usuario=user_log.id, fecha=date.today())
-            # print(sell.fecha)
-            # sell.sell()
-            # sell.save()
-            # serializers.serialize("xml", [sell])
-
         else:
             messages.error(request, "Error en la carga de la compra")
     else:

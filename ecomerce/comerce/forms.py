@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ValidationError, ModelForm
-
-from .models import Productos
+from django.contrib.auth.forms import UserCreationForm
+from .models import Productos, User
 
 # Validador para no ingresar compras con cantidad de productos erronea
 
