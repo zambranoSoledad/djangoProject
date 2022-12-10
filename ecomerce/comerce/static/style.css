@@ -1,5 +1,4 @@
 header{
-    background-image: url('./imgenes/fondo_venta.jpg');
     background-repeat: round;
     justify-content: center;
 }
@@ -13,10 +12,15 @@ h3{
 text-align: center; 
     padding:25px
 }
-a{
+a, li{
     text-decoration: none;
     color: black;
 }
 a:hover{
-    background-color: rgb(101, 189, 149);
+    background-color: rgb(241, 242, 236);
+}
+
+footer{
+    width: 100%;
+    position: absolute;
 }

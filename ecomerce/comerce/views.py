@@ -1,5 +1,5 @@
 from django.views import View
-from .models import Productos, Ventas, User
+from .models import Productos, Ventas
 from django.views.generic.list import ListView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -8,6 +8,7 @@ from .forms import UserForm, SellForm, ProductForm, ContactForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from datetime import date
 from django.core import serializers
@@ -61,12 +62,16 @@ def contact(request):
         contact_form = ContactForm()
     return render(request, "contact.html", {"contact_form": contact_form})
 
-
 def register(request):
     if request.method == "POST":
         user_form = UserForm(request.POST)
         if user_form.is_valid():
             print("Formulario valido")
+            new_user = User.objects.create_user(username=request.POST['username'],
+                                                first_name=request.POST['name'],
+                                                email=request.POST['email'],
+                                                password=request.POST['password'])
+            new_user.save()
     else:
         user_form = UserForm()
     return render(request, "register_user.html", {"user_form": user_form})

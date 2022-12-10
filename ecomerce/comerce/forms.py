@@ -44,6 +44,21 @@ class UserForm(forms.Form):
     #        raise ValidationError("Too short password!")
     #    return data
 
+# class UserRegisterForm(forms.Form):
+
+#     # forms.CharField(widget=forms.TextInput(attrs={"class":"css_class"}))
+#     name = forms.CharField(widget=forms.TextInput(
+#         attrs={'class': 'form-control m-2 p-2'}), label="Nombre", required=True)
+#     lastName= forms.CharField(widget=forms.TextInput(
+#         attrs={'class': 'form-control m-2 p-2'}), label="Nombre", required=False)
+#     email = forms.EmailField(widget=forms.TextInput(
+#         attrs={'class': 'form-control m-2 p-2'}), label="Mail",required=True)
+#     username = forms.CharField(widget=forms.TextInput(
+#         attrs={'class': 'form-control m-2 p-2'}), label="Usuario")
+#     password = forms.CharField(widget=forms.PasswordInput(
+#         attrs={'class': 'form-control m-2 p-2'}),
+#         label="Contraseña")
+
 
 class SellForm(forms.Form):
 
