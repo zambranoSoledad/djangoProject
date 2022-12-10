@@ -25,6 +25,12 @@ class ProductListView(ListView):
     paginate_by = 10  # if pagination is desired
 
 
+class SellListView(ListView):
+    model = Ventas
+    template_name = "sell_list.html"
+    paginate_by = 6  # if pagination is desired
+
+
 def login_user(request):
     if request.method == "POST":
         username = request.POST["username"]

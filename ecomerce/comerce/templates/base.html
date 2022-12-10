@@ -51,8 +51,20 @@
                           {% endif%}
                         </ul>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="">Compra</a>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Compras
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if user.is_authenticated%}
+                        <li><a class="dropdown-item" href="{% url 'sell_list' %}">Listar</a></li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Estadísticas</a></li>
+                        {% endif%}
+                      </ul>
                     </li>
                 </ul>
                <ul class="navbar-nav  mb-2 mb-lg-0">
