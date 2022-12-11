@@ -1,17 +1,17 @@
 from django.views import View
-from .models import Productos, Ventas, Contacto
+from .models import Productos, Ventas, Mensaje
 from django.views.generic.list import ListView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .forms import UserForm, SellForm, ProductForm, ContactForm
+from .forms import UserForm, SellForm, ProductForm, MessageForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.utils import IntegrityError
-from datetime import date
+from datetime import date, datetime
 from django.core import serializers
 
 
@@ -63,18 +63,21 @@ def login_user(request):
 
 def contact(request):
     if request.method == "POST":
-        contact_form = ContactForm(request.POST)
+        contact_form = MessageForm(request.POST)
+        user_log = User(request.user)
         if contact_form.is_valid():
-            nombre = contact.cleaned_data['nombre']
-            apellido = contact.cleaned_data['apellido']
-            dni = contact.cleaned_data['dni']
-            email = contact.cleaned_data['email']
-            texto = contact.cleaned_data['texto']
-            nuevo_contacto = Contacto(nombre=nombre, apellido=apellido, dni=dni, email=email, texto=texto)
-            nuevo_contacto.save()
+            print('Is valid!')
+            user_message = Mensaje(usuario=user_log.id,
+                                   fecha=datetime.now(),
+                                   motivo=contact_form.cleaned_data['motivo'],
+                                   mensaje=contact_form.cleaned_data['mensaje'])
+            user_message.save()
+            messages.success(request, 'Mensaje enviado con éxito!')
             return redirect('contact')
+        else:
+            print('Is not valid!')
     else:
-        contact_form = ContactForm()
+        contact_form = MessageForm()
     return render(request, "contact.html", {"contact_form": contact_form})
 
 

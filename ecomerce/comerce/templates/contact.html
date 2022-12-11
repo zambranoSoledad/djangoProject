@@ -2,14 +2,14 @@
 
 {% block titulo %} Contacto {% endblock titulo %}
 
-{% block contenido %} 
+{% block contenido %}
 
-<form action="{% url "contact" %} class="form-text" method="post" validate">
+<form action='{% url "contact" %}' enctype="multipart/form-data" class="form-text" method="post" validate">
 
   {% csrf_token %}
-  {{ contact_form}}
+  {{contact_form}}
 
-  <a name="" id="" class="btn btn-primary" href="{% url 'contact' %}" role="button">Enviar</a>
+  <input type="submit" class="btn btn-primary m-4 p-3" value="Enviar">
 </form>
 
 {% endblock contenido %}

@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ValidationError, ModelForm
-from .models import Productos, User, Contacto
+from .models import Productos, User
 
 
 def quantity_products_validate(value):
@@ -19,10 +19,12 @@ def password_validator(string):
             code="error_password_length",)
 
 
-class ContactForm(forms.ModelForm):
-    class Meta:
-        model = Contacto
-        fields = '__all__'
+class MessageForm(forms.Form):
+    motivo = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control m-2 p-2'}), label="Motivo", required=False)
+    mensaje = forms.CharField(widget=forms.Textarea(
+        attrs={'class': 'form-control m-2 p-2'}), label="Mensaje")
+
 
 class UserForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(
