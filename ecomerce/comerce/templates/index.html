@@ -5,13 +5,6 @@
 {% block contenido %} 
 
 <div class="row row-cols-1 row-cols-md-2 g-4">
-  {% if messages %}
-  <div class=" 'messages">
-    {% for message in messages %}
-    <h2{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</h2>
-      {% endfor %}
-  </div>
-  {% endif %}
   {% for article in object_list %}
   
     <div class="card" style="width: 25rem; margin-top: 2.5rem; margin-left: 1rem">

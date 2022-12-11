@@ -3,32 +3,31 @@
 {% block titulo %} Inicio {% endblock %}
 
 {% block contenido %}
-
-<div class="row row-cols-1 row-cols-md-2 g-4">
-
-  <table class="table table-success table-striped">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Fecha</th>
-        <th scope="col">Producto</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for sell in object_list %}
-      <tr>
-        <td>{{sell.id}}</td>
-        <td>{{sell.fecha|date}}</td>
-        <td>{{sell.producto.nombre_producto}}</td>
-        <td>{{sell.cantidad}}</td>
-        <td>${{sell.monto}}</td>
-      </tr>
-      {% empty %}
-      <li>No hay Compras aún.</li>
-      {% endfor %}
-      <!-- <tr>
+<table class="table table-success table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Categoria</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Imagen</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for article in object_list %}
+    <tr>
+      <td>{{article.id}}</td>
+      <td>{{article.nombre_producto}}</td>
+      <td>{{article.categoria.nombre_categoria}}</td>
+      <td>${{article.precio}}</td>
+      <td>{{article.stock}}</td>
+      <td><img src="../media/{{ article.imagen }}" class="im" alt="Producto" width="65px"></td>
+    </tr>
+    {% empty %}
+    <li>No hay Compras aún.</li>
+    {% endfor %}
+    <!-- <tr>
         <th scope="row">2</th>
         <td>Jacob</td>
         <td>Thornton</td>
@@ -39,14 +38,11 @@
         <td colspan="2">Larry the Bird</td>
         <td>@twitter</td>
       </tr> -->
-    </tbody>
-  </table>
+  </tbody>
+</table>
 
-  <!-- <li>{{ article.pub_date|date }} - {{ article.headline }}</li>      -->
+<!-- <li>{{ article.pub_date|date }} - {{ article.headline }}</li>      -->
 
-
-
-</div>
 {% if is_paginated %}
 <ul class="pagination">
   {% if object_list.has_previous %}

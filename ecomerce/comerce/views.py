@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.db.utils import IntegrityError
 from datetime import date
 from django.core import serializers
 
@@ -24,6 +25,13 @@ class ProductListView(ListView):
     model = Productos
     template_name = "index.html"
     paginate_by = 10  # if pagination is desired
+
+
+class ProductTableView(ListView):
+
+    model = Productos
+    template_name = "product_list.html"
+    paginate_by = 6  # if pagination is desired
 
 
 class SellListView(ListView):
@@ -62,18 +70,26 @@ def contact(request):
         contact_form = ContactForm()
     return render(request, "contact.html", {"contact_form": contact_form})
 
+
 def register(request):
-    if request.method == "POST":
-        user_form = UserForm(request.POST)
-        if user_form.is_valid():
-            print("Formulario valido")
-            new_user = User.objects.create_user(username=request.POST['username'],
-                                                first_name=request.POST['name'],
-                                                email=request.POST['email'],
-                                                password=request.POST['password'])
-            new_user.save()
-    else:
-        user_form = UserForm()
+    user_form = UserForm()
+    try:
+        if request.method == "POST":
+            user_form = UserForm(request.POST)
+            if user_form.is_valid():
+                new_user = User.objects.create_user(username=request.POST['username'],
+                                                    first_name=request.POST['name'],
+                                                    email=request.POST['email'],
+                                                    password=request.POST['password'])
+                new_user.save()
+                messages.success(request, "Registro exitoso!")
+                return redirect('login')
+    except IntegrityError as e:
+        messages.error(
+            request, "El usuario o email ingresado ya existen. Por favor ingrese uno distinto!")
+    except Exception as e:
+        messages.error(
+            request, "Ha ocurrido un error en el registro. Por favor intente nuevamente!")
     return render(request, "register_user.html", {"user_form": user_form})
 
 

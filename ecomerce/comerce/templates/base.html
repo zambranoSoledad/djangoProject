@@ -35,9 +35,6 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'contact' %}">Contacto</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'register' %}">Registro</a>
-                    </li>
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Productos
@@ -45,7 +42,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                           {% if user.is_authenticated%}
                           <li><a class="dropdown-item" href="{% url 'product_register' %}">Registrar</a></li>
-                          <li><a class="dropdown-item" href="#">Listar</a></li>
+                          <li><a class="dropdown-item" href="{% url 'product_list' %}">Listar</a></li>
                           <li><hr class="dropdown-divider"></li>
                           <li><a class="dropdown-item" href="#">Estadísticas</a></li>
                           {% endif%}
@@ -87,13 +84,29 @@
                 <li class="nav-item">
                       <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Iniciar Sesión</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'register' %}">Registro</a>
+                </li>
                 {%endif%}
                 
               </ul>
               </div>
         </div>
     </nav>
-    <div class="container">{% block contenido %} {% endblock %} </div>
+    <div class="container m-2">
+      {% if messages %}
+      <div class=" 'messages">
+        {% for message in messages %}
+        <div class="alert alert-info" role="alert">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="container">
+      {% block contenido %} {% endblock %}
+    </div>
   </main>
     <footer class="color_fondo py-5 mt-5">
   <div class="container py-5">

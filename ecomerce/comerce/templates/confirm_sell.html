@@ -5,7 +5,6 @@
 {% block contenido %}
 <div class='row justify-content-center'>
 
-  <div>
     {% csrf_token %}
     <div class="form-group">
       <h2>Confirma tu Compra.</h2>
@@ -17,19 +16,8 @@
         <h4>Cantidad: {{ sell.quantity }} unidades.</h4>
         <h4>Total: ${{ sell.amount }}</h4>
       </div>
+      <a class="btn btn-primary" href="{% url 'success_sell' %}">Comprar</a>
     </div>
-    <a class="btn btn-primary" href="{% url 'success_sell' %}">Comprar</a>
-
-  </div>
-  {% if messages %}
-  <div class=" 'messages">
-    {% for message in messages %}
-    <div class="alert alert-info" role="alert">
-      {{ message }}
-      </div>
-      {% endfor %}
-      </div>
-      {% endif %}
 </div>
 
 {% endblock %}

@@ -1,16 +1,22 @@
 from django import forms
 from django.forms import ValidationError, ModelForm
-from django.contrib.auth.forms import UserCreationForm
 from .models import Productos, User
-
-# Validador para no ingresar compras con cantidad de productos erronea
 
 
 def quantity_products_validate(value):
+    """validate the quantity of the product stock"""
     if not value or value < 1:
         raise ValidationError(
             "Debes ingresar al menos 1 producto en la compra",
             code="error_quantity_products",)
+
+
+def password_validator(string):
+    """validate the password's length"""
+    if len(string) < 5:
+        raise ValidationError(
+            "Contraseña demasiado corta. Debe contener almenos 5 caracteres.",
+            code="error_password_length",)
 
 
 class ContactForm(forms.Form):
@@ -25,8 +31,6 @@ class ContactForm(forms.Form):
 
 
 class UserForm(forms.Form):
-
-    # forms.CharField(widget=forms.TextInput(attrs={"class":"css_class"}))
     name = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control m-2 p-2'}), label="Nombre", required=False)
     email = forms.EmailField(widget=forms.TextInput(
@@ -35,41 +39,14 @@ class UserForm(forms.Form):
         attrs={'class': 'form-control m-2 p-2'}), label="Usuario")
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'class': 'form-control m-2 p-2'}),
-        label="Contraseña")
-
-    # def clean_user(self):
-    #    data = self.cleaned_data['password']
-    #    if len(data) < 3:  # solo es prueba
-    #        print("Password very short!")
-    #        raise ValidationError("Too short password!")
-    #    return data
-
-# class UserRegisterForm(forms.Form):
-
-#     # forms.CharField(widget=forms.TextInput(attrs={"class":"css_class"}))
-#     name = forms.CharField(widget=forms.TextInput(
-#         attrs={'class': 'form-control m-2 p-2'}), label="Nombre", required=True)
-#     lastName= forms.CharField(widget=forms.TextInput(
-#         attrs={'class': 'form-control m-2 p-2'}), label="Nombre", required=False)
-#     email = forms.EmailField(widget=forms.TextInput(
-#         attrs={'class': 'form-control m-2 p-2'}), label="Mail",required=True)
-#     username = forms.CharField(widget=forms.TextInput(
-#         attrs={'class': 'form-control m-2 p-2'}), label="Usuario")
-#     password = forms.CharField(widget=forms.PasswordInput(
-#         attrs={'class': 'form-control m-2 p-2'}),
-#         label="Contraseña")
+        label="Contraseña", validators=[password_validator])
 
 
 class SellForm(forms.Form):
-
-    # username = forms.CharField(widget=forms.TextInput(
-    #    attrs={'class': 'form-control m-2 p-2'}), label="Usuario", required=True)
-    # date = forms.DateField(widget=forms.SelectDateWidget(
-    #    attrs={'class': 'form-control m-2 p-2'}), label="Fecha", required=True)
-    # product = forms.CharField(widget=forms.TextInput(
-    #    attrs={'class': 'form-control m-2 p-2'}), label="Producto")
     quantity = forms.IntegerField(widget=forms.NumberInput(
-        attrs={'class': 'form-control m-2 p-2'}), label="Cantidad", validators=(quantity_products_validate,))
+        attrs={'class': 'form-control m-2 p-2'}),
+        label="Cantidad",
+        validators=(quantity_products_validate,))
 
 
 class ProductForm(ModelForm):
