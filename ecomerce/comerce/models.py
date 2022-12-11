@@ -5,21 +5,6 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-# class Permisos(models.Model):
-#    nombre_permiso = models.CharField(
-#        max_length=100, verbose_name='Nombre_Permiso')
-#    descripcion_categoria = models.CharField(
-#        max_length=200, verbose_name='Descripcion_Permisos')
-
-
-# class Usuarios(models.Model):
-#    nombre = models.CharField(max_length=100, verbose_name='Nombre_Usuario')
-#    apellido = models.CharField(
-#        max_length = 100, verbose_name = 'Apellido_Usuario')
-#    mail = models.CharField(max_length=100, verbose_name='Mail')
-#    contrasena = models.CharField(max_length=100, verbose_name='Contrasena')
-#    permiso = models.ManyToManyField(Permisos)
-
 class Categorias(models.Model):
     nombre_categoria = models.CharField(
         max_length=100, verbose_name='Nombre_Categoria')
@@ -34,6 +19,8 @@ class Productos(models.Model):
     categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE)
     stock = models.IntegerField(verbose_name='Stock', default=0)
     imagen = models.ImageField(upload_to='images/', null=True, blank=True)
+    baja = models.BooleanField(verbose_name='Baja',
+                               blank=False, null=False, default=False)
 
 
 class Ventas(models.Model):
@@ -44,6 +31,8 @@ class Ventas(models.Model):
         verbose_name='Cantidad',  blank=False, null=False)
     monto = models.FloatField(verbose_name='Monto',
                               blank=False, null=False)
+    baja = models.BooleanField(verbose_name='Baja',
+                               blank=False, null=False, default=False)
 
     def set_amount(self):
         if self.producto.stock > self.cantidad:
