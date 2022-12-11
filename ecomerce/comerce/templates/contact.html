@@ -7,9 +7,9 @@
 <form action="{% url "contact" %} class="form-text" method="post" validate">
 
   {% csrf_token %}
-  {{ contact_form }}
-   
-  <input type="submit"  class="btn btn-danger m-4 p-3" value="Enviar">
+  {{ contact_form}}
+
+  <a name="" id="" class="btn btn-primary" href="{% url 'contact' %}" role="button">Enviar</a>
 </form>
 
 {% endblock contenido %}

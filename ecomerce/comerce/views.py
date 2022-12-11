@@ -1,5 +1,5 @@
 from django.views import View
-from .models import Productos, Ventas
+from .models import Productos, Ventas, Contacto
 from django.views.generic.list import ListView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -65,7 +65,14 @@ def contact(request):
     if request.method == "POST":
         contact_form = ContactForm(request.POST)
         if contact_form.is_valid():
-            print("Formulario valido")
+            nombre = contact.cleaned_data['nombre']
+            apellido = contact.cleaned_data['apellido']
+            dni = contact.cleaned_data['dni']
+            email = contact.cleaned_data['email']
+            texto = contact.cleaned_data['texto']
+            nuevo_contacto = Contacto(nombre=nombre, apellido=apellido, dni=dni, email=email, texto=texto)
+            nuevo_contacto.save()
+            return redirect('contact')
     else:
         contact_form = ContactForm()
     return render(request, "contact.html", {"contact_form": contact_form})

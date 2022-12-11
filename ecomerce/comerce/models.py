@@ -11,6 +11,12 @@ class Categorias(models.Model):
     descripcion_categoria = models.CharField(
         max_length=200, verbose_name='Descripcion_Categoria')
 
+class Contacto(models.Model):
+    nombre = models.CharField(max_length=100, verbose_name='nombre')
+    apellido = models.CharField(max_length=100, verbose_name='apellido')
+    email = models.EmailField(max_length=100, verbose_name='email', null=True, default=None)
+    dni = models.BigIntegerField(verbose_name='dni')
+    texto = models.TextField(max_length=100, verbose_name='texto')
 
 class Productos(models.Model):
     nombre_producto = models.CharField(

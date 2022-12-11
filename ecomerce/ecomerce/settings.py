@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.admin', 'django.contrib.auth',
     'django.contrib.contenttypes', 'django.contrib.sessions',
     'django.contrib.messages', 'django.contrib.staticfiles', 'comerce',
-    'bootstrap', 'fontawesome'
+    'bootstrap', 'fontawesome',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'djangodb',  # eliminar anterior base de datos
         'USER': 'postgres',
-        'PASSWORD': 'Lucia90',
+        'PASSWORD': 'Prueba!123',
         'HOST': 'localhost',
         'PORT': '5432',
     }
