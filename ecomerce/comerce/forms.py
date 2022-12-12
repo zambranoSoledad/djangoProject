@@ -49,3 +49,12 @@ class ProductForm(ModelForm):
     class Meta:
         model = Productos
         fields = '__all__'
+        widgets = {
+            'nombre_producto': forms.TextInput({'class': 'form-control m-2 p-2'}),
+            'categoria': forms.Select({'class': 'form-control m-2 p-2'}),
+            'precio': forms.NumberInput(
+                {'class': 'form-control m-2 p-2'}),
+            'stock': forms.NumberInput(
+                {'class': 'form-control m-2 p-2'}),
+
+        }

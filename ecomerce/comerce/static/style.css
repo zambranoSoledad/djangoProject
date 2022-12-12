@@ -1,27 +1,32 @@
-header{
+header {
     background-repeat: round;
     justify-content: center;
 }
-h3{
+
+h3 {
     color: white;
 }
-.color_fondo{
+
+.color_fondo {
     background-color: #5573df;
 }
-.alineacion{
-text-align: center; 
-    padding:25px
+
+.alineacion {
+    text-align: center;
+    padding: 25px
 }
-a, li{
+
+a,
+li {
     text-decoration: none;
     color: black;
 }
-a:hover{
+
+a:hover {
     background-color: rgb(241, 242, 236);
 }
 
-footer{
+footer {
     width: 100%;
-    position: fixed;
     bottom: 0;
 }

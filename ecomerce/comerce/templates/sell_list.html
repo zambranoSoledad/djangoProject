@@ -10,6 +10,7 @@
     <thead>
       <tr>
         <th scope="col">ID</th>
+        <th scope="col">Cliente</th>
         <th scope="col">Fecha</th>
         <th scope="col">Producto</th>
         <th scope="col">Cantidad</th>
@@ -20,6 +21,7 @@
       {% for sell in object_list %}
       <tr>
         <td>{{sell.id}}</td>
+        <td>{{sell.usuario.username}}</td>
         <td>{{sell.fecha|date}}</td>
         <td>{{sell.producto.nombre_producto}}</td>
         <td>{{sell.cantidad}}</td>
