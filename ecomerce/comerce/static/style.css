@@ -28,5 +28,11 @@ a:hover {
 
 footer {
     width: 100%;
-    bottom: 0;
+    <<<<<<< HEAD bottom: 0;
 }
+
+=======position: absolute;
+padding-top: 20px;
+}
+
+>>>>>>>4f2444b5d4ae66ebdf1748e3efc2c51ecba51126
