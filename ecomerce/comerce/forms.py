@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ValidationError, ModelForm
-from .models import Productos, User
+from .models import Productos, User, Categorias
 
 
 def quantity_products_validate(value):
@@ -56,5 +56,16 @@ class ProductForm(ModelForm):
                 {'class': 'form-control m-2 p-2'}),
             'stock': forms.NumberInput(
                 {'class': 'form-control m-2 p-2'}),
+
+        }
+
+class CategoryForm(ModelForm):
+
+    class Meta:
+        model = Categorias
+        fields = '__all__'
+        widgets = {
+            'nombre_categoria': forms.TextInput({'class': 'form-control m-2 p-2'}),
+            'descripcion_categoria': forms.TextInput({'class': 'form-control m-2 p-2'}),
 
         }

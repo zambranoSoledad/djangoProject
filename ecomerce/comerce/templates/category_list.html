@@ -1,43 +1,24 @@
 {%extends "base.html" %}
 
-{% block titulo %} Inicio {% endblock %}
+{% block titulo %} Categorias {% endblock %}
 
 {% block contenido %}
 <table class="table table-success table-striped">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Producto</th>
-      <th scope="col">Categoria</th>
-      <th scope="col">Precio</th>
-      <th scope="col">Stock</th>
-      <th scope="col">Imagen</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Descripcion</th>
     </tr>
   </thead>
   <tbody>
     {% for article in object_list %}
     <tr>
-      <td>{{article.id}}</td>
-      <td>{{article.nombre_producto}}</td>
-      <td>{{article.categoria.nombre_categoria}}</td>
-      <td>${{article.precio}}</td>
-      <td>{{article.stock}}</td>
-      <td><img src="../media/{{ article.imagen }}" class="im" alt="Producto" width="65px"></td>
+      <td>{{article.nombre_categoria}}</td>
+      <td>{{article.descripcion_categoria}}</td>
     </tr>
     {% empty %}
-    <li>No hay Productos aún.</li>
+    <li>No hay Categorias aún.</li>
     {% endfor %}
-    <!-- <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr> -->
   </tbody>
 </table>
 

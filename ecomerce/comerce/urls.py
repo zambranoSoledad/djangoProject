@@ -14,5 +14,7 @@ urlpatterns = [
     path('sell/<int:id_producto>', views.sell, name="sell"),
     path('sell/confirm', views.confirm_sell, name="confirm_sell"),
     path('sell/success', views.success_sell, name="success_sell"),
-    path('sell/list', views.SellListView.as_view(), name="sell_list")
+    path('sell/list', views.SellListView.as_view(), name="sell_list"),
+    path('category/add', views.CategoryView.as_view(), name="category_register"),
+    path('category/list', views.CategoryTableView.as_view(), name="category_list")
 ]
