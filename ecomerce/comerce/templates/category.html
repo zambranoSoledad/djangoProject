@@ -1,0 +1,20 @@
+{%extends "base.html" %}
+
+{% block titulo %} Categorias {% endblock %}
+
+{% block contenido %}
+
+  <div class='row justify-content-center'>
+    
+        <form action="{% url "category_register" %}" enctype="multipart/form-data" method="post" class="form-text">
+            {% csrf_token %}
+            <div class="form-group">
+                {{category_form.as_table}}
+            </div>
+            <input type="submit"  class="btn btn-danger m-4 p-3" value="Registrar">
+        </form>
+   
+</div>
+
+{% endblock %}
+

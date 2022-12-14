@@ -1,10 +1,10 @@
 from django.views import View
-from .models import Productos, Ventas, Mensaje
+from .models import Productos, Ventas, Mensaje, Categorias
 from django.views.generic.list import ListView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .forms import UserForm, SellForm, ProductForm, MessageForm
+from .forms import UserForm, SellForm, ProductForm, MessageForm, CategoryForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
@@ -199,3 +199,29 @@ class ProductView(View):
     return render(request, "product.html", {"product_form": product_form})
 
     '''
+
+class CategoryView(View):
+    '''Register a new Category '''
+
+    form_class = CategoryForm
+    template_name = 'category.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'category_form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Registro exitoso!")
+            return redirect('category_register')
+        print("Error!!!!", form.cleaned_data)
+
+
+
+class CategoryTableView(ListView):
+
+    model = Categorias
+    template_name = "category_list.html"
+    paginate_by = 6  # if pagination is desired
