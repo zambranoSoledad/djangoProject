@@ -24,27 +24,34 @@ class ProductListView(ListView):
 
     model = Productos
     template_name = "index.html"
-    paginate_by = 10  # if pagination is desired
+    paginate_by = 6  # if pagination is desired
 
 
 class MessageTableView(ListView):
 
     model = Mensaje
     template_name = "message_list.html"
-    paginate_by = 10  # if pagination is desired
+    paginate_by = 6  # if pagination is desired
+
+
+class MessageDetailView(View):
+    def get(self, request, *args, **kwargs):
+        message = Mensaje.objects.get(pk=kwargs['pk'])
+        context = {'message': message}
+        return render(request, 'message_detail.html', context)
 
 
 class ProductTableView(ListView):
 
     model = Productos
     template_name = "product_list.html"
-    paginate_by = 5  # if pagination is desired
+    paginate_by = 6  # if pagination is desired
 
 
 class SellListView(ListView):
     model = Ventas
     template_name = "sell_list.html"
-    paginate_by = 5  # if pagination is desired
+    paginate_by = 6  # if pagination is desired
 
 
 def login_user(request):

@@ -1,0 +1,26 @@
+{%extends "base.html" %}
+
+{% block titulo %} Compra {% endblock %}
+
+{% block contenido %}
+
+<div class='row justify-content-center'>
+
+  <div>
+    {% csrf_token %}
+    <div class="card">
+      <div class="card-header" style="background-color: rgb(214, 231, 241);">
+        <h5>Fecha: {{message.fecha|date}}</h5>
+      </div>
+      <div class="card-body" style="background-color: rgb(252, 249, 253);">
+        <h4>Usuario: {{message.usuario.username }}</h4>
+        <h4>Motivo: {{message.motivo }}</h4>
+        <h4>Mensaje</h4>
+        <h5> {{ message.mensaje }} unidades.</h5>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

@@ -20,22 +20,12 @@
       <td>{{message.fecha}}</td>
       <td>{{message.usuario.username}}</td>
       <td>{{message.motivo}}</td>
-      <td><img src="..\static\imgenes\abrir.png" alt="" width="25px"></td>
+      <td><a href="{% url 'message_detail' message.id %}"><img src="..\static\imgenes\abrir.png" alt=""
+            width="25px"></a></td>
     </tr>
     {% empty %}
     <li>No hay Productos aún.</li>
     {% endfor %}
-    <!-- <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr> -->
   </tbody>
 </table>
 
