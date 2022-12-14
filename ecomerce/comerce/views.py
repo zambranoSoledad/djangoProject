@@ -27,17 +27,24 @@ class ProductListView(ListView):
     paginate_by = 10  # if pagination is desired
 
 
+class MessageTableView(ListView):
+
+    model = Mensaje
+    template_name = "message_list.html"
+    paginate_by = 10  # if pagination is desired
+
+
 class ProductTableView(ListView):
 
     model = Productos
     template_name = "product_list.html"
-    paginate_by = 6  # if pagination is desired
+    paginate_by = 5  # if pagination is desired
 
 
 class SellListView(ListView):
     model = Ventas
     template_name = "sell_list.html"
-    paginate_by = 6  # if pagination is desired
+    paginate_by = 5  # if pagination is desired
 
 
 def login_user(request):
@@ -200,6 +207,7 @@ class ProductView(View):
 
     '''
 
+
 class CategoryView(View):
     '''Register a new Category '''
 
@@ -217,7 +225,6 @@ class CategoryView(View):
             messages.success(request, "Registro exitoso!")
             return redirect('category_register')
         print("Error!!!!", form.cleaned_data)
-
 
 
 class CategoryTableView(ListView):

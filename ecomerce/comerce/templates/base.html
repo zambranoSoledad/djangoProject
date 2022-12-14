@@ -12,99 +12,114 @@
   <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <!--css-->
-    <link rel="stylesheet" type="text/css" href="{% static '../static/style.css' %}">
+  <!--css-->
+  <link rel="stylesheet" type="text/css" href="{% static '../static/style.css' %}">
 </head>
+
 <body>
   <header class="color_fondo alineacion">
     <h3>Tienda Virtual</h3>
   </header>
   <main>
     <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'contact' %}">Contacto</a>
-                    </li>
-                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Productos
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          {% if user.is_authenticated%}
-                          <li><a class="dropdown-item" href="{% url 'product_register' %}">Registrar</a></li>
-                          <li><a class="dropdown-item" href="{% url 'product_list' %}">Listar</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">Estadísticas</a></li>
-                          {% endif%}
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Compras
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% if user.is_authenticated%}
-                        <li><a class="dropdown-item" href="{% url 'sell_list' %}">Listar</a></li>
-                        <li>
-                          <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Estadísticas</a></li>
-                        {% endif%}
-                      </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categorias
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% if user.is_authenticated%}
-                        <li><a class="dropdown-item" href="{% url 'category_register' %}">Registrar</a></li>
-                        <li><a class="dropdown-item" href="{% url 'category_list' %}">Listar</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Estadísticas</a></li>
-                        {% endif%}
-                      </ul>
-                  </li>
-                </ul>
-               <ul class="navbar-nav  mb-2 mb-lg-0">
-            
-                <form class="d-flex ml-auto" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'contact' %}">Contacto</a>
+            </li>
+            {% if user.is_authenticated%}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'message_list' %}"><img
+                  src="static\imgenes\email.png" alt="" width="30px"></a>
+            </li>
+            {% endif%}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Productos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% if user.is_authenticated%}
-                <li class="nav-item">
-                <p class="text m-2">Bienvenido {{ user.username}}</p>
+                <li><a class="dropdown-item" href="{% url 'product_register' %}">Registrar</a></li>
+                <li><a class="dropdown-item" href="{% url 'product_list' %}">Listar</a></li>
+                <li>
+                  <hr class="dropdown-divider">
                 </li>
-                <li class="btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20px"><path d="M0 24C0 10.7 10.7 0 24 0H96c11.5 0 21.4 8.2 23.6 19.5L122 32H312V134.1l-23-23c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0l64-64c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-23 23V32H541.8c21.2 0 36.5 20.3 30.8 40.7l-54 192c-3.9 13.8-16.5 23.3-30.8 23.3h-317l9.1 48H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H160c-11.5 0-21.4-8.2-23.6-19.5L76.1 48H24C10.7 48 0 37.3 0 24zM224 464c0 26.5-21.5 48-48 48s-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48zm240 48c-26.5 0-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48z"/></svg>
-                </li>
-                <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Salir</a>
-                </li>
-                {%else%}
-                <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Iniciar Sesión</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'register' %}">Registro</a>
-                </li>
-                {%endif%}
-                
+                <li><a class="dropdown-item" href="#">Estadísticas</a></li>
+                {% endif%}
               </ul>
-              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Compras
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% if user.is_authenticated%}
+                <li><a class="dropdown-item" href="{% url 'sell_list' %}">Listar</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Estadísticas</a></li>
+                {% endif%}
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Categorias
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% if user.is_authenticated%}
+                <li><a class="dropdown-item" href="{% url 'category_register' %}">Registrar</a></li>
+                <li><a class="dropdown-item" href="{% url 'category_list' %}">Listar</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Estadísticas</a></li>
+                {% endif%}
+              </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav  mb-2 mb-lg-0">
+
+            <form class="d-flex ml-auto" role="search">
+              <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+            {% if user.is_authenticated%}
+            <li class="nav-item">
+              <p class="text m-2">Bienvenido {{ user.username}}</p>
+            </li>
+            <li class="btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20px">
+                <path
+                  d="M0 24C0 10.7 10.7 0 24 0H96c11.5 0 21.4 8.2 23.6 19.5L122 32H312V134.1l-23-23c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0l64-64c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-23 23V32H541.8c21.2 0 36.5 20.3 30.8 40.7l-54 192c-3.9 13.8-16.5 23.3-30.8 23.3h-317l9.1 48H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H160c-11.5 0-21.4-8.2-23.6-19.5L76.1 48H24C10.7 48 0 37.3 0 24zM224 464c0 26.5-21.5 48-48 48s-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48zm240 48c-26.5 0-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48z" />
+              </svg>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Salir</a>
+            </li>
+            {%else%}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Iniciar Sesión</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'register' %}">Registro</a>
+            </li>
+            {%endif%}
+
+          </ul>
         </div>
+      </div>
     </nav>
     <div class="container m-2">
       {% if messages %}
@@ -121,62 +136,68 @@
       {% block contenido %} {% endblock %}
     </div>
   </main>
-    <footer class="color_fondo py-5 mt-5">
-  <div class="container py-5">
-    <div class="row">
-      <div class="col-lg-3 mb-3">
-        <a class="d-inline-flex align-items-center mb-2 link-dark text-decoration-none" href="/" aria-label="Bootstrap">
-         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M547.6 103.8L490.3 13.1C485.2 5 476.1 0 466.4 0H109.6C99.9 0 90.8 5 85.7 13.1L28.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM499.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H128V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z"/></svg>
-          <span class="fs-5">Tienda Virtual<span>
-        </a>
-        <ul class="list-unstyled small text-muted">
-          <li class="mb-2">Politica de Cokkie<a href="" target="_blank" rel="license noopener">MIT</a>, docs <a href="" target="_blank" rel="license noopener">CC BY 3.0</a>.</li>
-          <li class="mb-2">Politica de Privacidad</li>
-          <li class="mb-2">Reclamos<a href="" target="_blank" rel="noopener">Fathom</a>.</li>
-        </ul>
-      </div>
-      <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-        <h5>Productos</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="/">Home</a></li>
-          <li class="mb-2"><a href="">Nosotros</a></li>
-          <li class="mb-2"><a href="">Ofertas</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-lg-2 mb-3">
-        <h5>Colecciones</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="">colecciones1</a></li>
-          <li class="mb-2"><a href="">colecciones2</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-lg-2 mb-3">
-        <h5>Marca</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="">marca1</a></li>
-          <li class="mb-2"><a href="">marca2</a></li>
-          <li class="mb-2"><a href="">marca3</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-lg-2 mb-3">
-        <h5>Categoria</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="">categoria1</a></li>
-          <li class="mb-2"><a href="">categpria2</a></li>
-          <li class="mb-2"><a href="">categoria3</a></li>
-        </ul>
+  <footer class="color_fondo py-5 mt-5">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-3 mb-3">
+          <a class="d-inline-flex align-items-center mb-2 link-dark text-decoration-none" href="/"
+            aria-label="Bootstrap">
+            <svg xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 576 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+              <path
+                d="M547.6 103.8L490.3 13.1C485.2 5 476.1 0 466.4 0H109.6C99.9 0 90.8 5 85.7 13.1L28.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM499.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H128V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z" />
+            </svg>
+            <span class="fs-5">Tienda Virtual<span>
+          </a>
+          <ul class="list-unstyled small text-muted">
+            <li class="mb-2">Politica de Cokkie<a href="" target="_blank" rel="license noopener">MIT</a>, docs <a
+                href="" target="_blank" rel="license noopener">CC BY 3.0</a>.</li>
+            <li class="mb-2">Politica de Privacidad</li>
+            <li class="mb-2">Reclamos<a href="" target="_blank" rel="noopener">Fathom</a>.</li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2 offset-lg-1 mb-3">
+          <h5>Productos</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="/">Home</a></li>
+            <li class="mb-2"><a href="">Nosotros</a></li>
+            <li class="mb-2"><a href="">Ofertas</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2 mb-3">
+          <h5>Colecciones</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="">colecciones1</a></li>
+            <li class="mb-2"><a href="">colecciones2</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2 mb-3">
+          <h5>Marca</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="">marca1</a></li>
+            <li class="mb-2"><a href="">marca2</a></li>
+            <li class="mb-2"><a href="">marca3</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2 mb-3">
+          <h5>Categoria</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="">categoria1</a></li>
+            <li class="mb-2"><a href="">categpria2</a></li>
+            <li class="mb-2"><a href="">categoria3</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-  </script>
+    </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-  </script>
+    </script>
 </body>
 
 </html>

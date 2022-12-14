@@ -59,6 +59,7 @@ class ProductForm(ModelForm):
 
         }
 
+
 class CategoryForm(ModelForm):
 
     class Meta:

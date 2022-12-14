@@ -1,0 +1,66 @@
+{%extends "base.html" %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %}
+<table class="table table-success table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">motivo</th>
+      <th scope="col">Ver</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for message in object_list %}
+    <tr>
+      <td>{{message.id}}</td>
+      <td>{{message.fecha}}</td>
+      <td>{{message.usuario.username}}</td>
+      <td>{{message.motivo}}</td>
+      <td><img src="..\static\imgenes\abrir.png" alt="" width="25px"></td>
+    </tr>
+    {% empty %}
+    <li>No hay Productos aún.</li>
+    {% endfor %}
+    <!-- <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr> -->
+  </tbody>
+</table>
+
+<!-- <li>{{ article.pub_date|date }} - {{ article.headline }}</li>      -->
+
+{% if is_paginated %}
+<ul class="pagination">
+  {% if object_list.has_previous %}
+  <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+  {% else %}
+  <li class="disabled"><span>&laquo;</span></li>
+  {% endif %}
+  {% for i in paginator.page_range %}
+  {% if object_list.number == i %}
+  <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+  {% else %}
+  <li><a href="?page={{ i }}">{{ i }}</a></li>
+  {% endif %}
+  {% endfor %}
+  {% if object_list.has_next %}
+  <li><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
+  {% else %}
+  <li class="disabled"><span>&raquo;</span></li>
+  {% endif %}
+</ul>
+{% endif %}
+
+{% endblock %}
