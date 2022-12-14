@@ -26,23 +26,9 @@ a:hover {
     background-color: rgb(241, 242, 236);
 }
 
-main{
-    height: fit-content;
-}
-
-/**
 footer {
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    padding: 1rem;
-}
-*/
-
-footer{
+    position: absolute;
     padding-top: 20px;
 }
 
-.tablaproductos{
-    margin-bottom: 220px;
-}
