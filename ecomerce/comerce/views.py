@@ -110,10 +110,12 @@ def register(request):
                 return redirect('login')
     except IntegrityError as e:
         messages.error(
-            request, "El usuario o email ingresado ya existen. Por favor ingrese uno distinto!")
+            request,
+            "El usuario o email ingresado ya existen. Por favor ingrese uno distinto!")
     except Exception as e:
         messages.error(
-            request, "Ha ocurrido un error en el registro. Por favor intente nuevamente!")
+            request,
+            "Ha ocurrido un error en el registro. Por favor intente nuevamente!")
     return render(request, "register_user.html", {"user_form": user_form})
 
 

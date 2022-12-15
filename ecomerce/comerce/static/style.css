@@ -7,12 +7,17 @@ h3 {
     color: white;
 }
 
+.sidebar {
+    grid-column: head-col-start / content-col-start;
+    grid-row: head-row-end / content-row-end;
+}
+
 .color_fondo {
     background-color: #5573df;
 }
 
 .alineacion {
-    text-align: center;
+    text-align: left;
     padding: 25px
 }
 
@@ -23,7 +28,7 @@ li {
 }
 
 a:hover {
-    background-color: rgb(241, 242, 236);
+    background-color: rgb(188, 232, 234);
 }
 
 footer {

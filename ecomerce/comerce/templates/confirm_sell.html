@@ -4,20 +4,25 @@
 
 {% block contenido %}
 <div class='row justify-content-center'>
-
-    {% csrf_token %}
-    <div class="form-group">
-      <h2>Confirma tu Compra.</h2>
-      <input type="text" id="lname" name="lname" placeholder="{{sell.product.nombre_producto}}" disabled
-        style="display: block;">
-      <img src="../media/{{sell.product.imagen}}" class="card-img-top" alt="Producto" style="width: 50rem">
-      <div class="card-body">
-        <h4>Precio unitario: ${{sell.product.precio }}</h4>
-        <h4>Cantidad: {{ sell.quantity }} unidades.</h4>
-        <h4>Total: ${{ sell.amount }}</h4>
+  <div class="card mb-4" style="max-width: 900px;">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <img src="../media/{{sell.product.imagen}}" class="img-fluid" alt="...">
       </div>
-      <a class="btn btn-primary" href="{% url 'success_sell' %}">Comprar</a>
+      <div class="col-md-6">
+        <div class="card-body">
+          <h5 class="card-title">{{sell.product.nombre_producto}}</h5>
+          <p class="card-text">{{sell.product.categoria.descripcion_categoria}}</p>
+          <h5>Precio unitario: ${{sell.product.precio }}</h4>
+            <h5>Cantidad: {{ sell.quantity }} unidades.</h4>
+        </div>
+        <div class="card-footer">
+          <h4>Total: ${{ sell.amount }}</h4>
+          <a class="btn btn-primary" href="{% url 'success_sell' %}">Comprar</a>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 {% endblock %}
