@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .forms import UserForm, SellForm, ProductForm, MessageForm, CategoryForm
+from .forms import UserForm, SellForm, ProductForm, MessageForm, CategoryForm, EmailForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.utils import IntegrityError
 from datetime import date, datetime
 from django.core import serializers
-
+from django.core.mail import send_mail
 
 def home(request):
     template = loader.get_template('index.html')
@@ -241,3 +241,26 @@ class CategoryTableView(ListView):
     model = Categorias
     template_name = "category_list.html"
     paginate_by = 6  # if pagination is desired
+
+
+def Email(request):
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            sender = form.cleaned_data['sender']
+            cc_myself = form.cleaned_data['cc_myself']
+
+            recipients = ['11prismatico11@gmail.com']
+            if cc_myself:
+                recipients.append(sender)
+
+            send_mail(subject, message, sender, recipients)
+            messages.success(request, 'Mensaje enviado con éxito!')
+            return render(request, 'correo.html')
+    else:
+        form = EmailForm()
+        return render(request, 'correo.html', {"form": EmailForm} )
+        
+

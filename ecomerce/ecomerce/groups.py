@@ -32,7 +32,7 @@ for perm in sell_permission:
         costumer_group.permissions.add(perm)
     admin_group.permissions.add(perm)
 
-user = User.objects.get(username="sole")
+user = User.objects.get(username="losco")
 user.groups.add(costumer_group)  # Add the user to the costumer group
 print(user.get_group_permissions())
 
